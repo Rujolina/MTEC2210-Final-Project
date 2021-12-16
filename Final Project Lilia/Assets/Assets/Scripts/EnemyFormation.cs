@@ -12,6 +12,9 @@ public class EnemyFormation : MonoBehaviour
     public GameObject bulletPrefab;
     private float timeTillFire;
     public float fireDelay;
+    public AudioSource audioSource;
+    public AudioClip deathClip;
+    public AudioClip playerDeathClip;
 
     // Start is called before the first frame update
     void Start()
@@ -49,9 +52,22 @@ public class EnemyFormation : MonoBehaviour
             timeTillFire = fireDelay;
         }
     }
+    public void PlayEnemyDeathAudio()
+    {
+        audioSource.PlayOneShot(deathClip);
+    }
+    public void PlayPlayerDeathClip()
+    {
+        audioSource.PlayOneShot(playerDeathClip);
+    }
+
     public void EnemyShoot()
     {
+
         int numberofEnemies = GetComponentsInChildren<EnemyScript>().Length;
+
+        if (numberofEnemies <= 0) return;
+
         int index = Random.Range(0, numberofEnemies);
         var enemyArray = GetComponentsInChildren<EnemyScript>();
 

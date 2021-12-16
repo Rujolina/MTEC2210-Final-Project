@@ -8,12 +8,14 @@ public class BulletScript : MonoBehaviour
     public float speed;
     private GameManager gameManager;
     private float mod;
+    private EnemyFormation enemyFormation;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
+        enemyFormation = GameObject.Find("EnemyFormation").GetComponent<EnemyFormation>();
         if (isPlayerBullet)
         {
             mod = 1;
@@ -36,13 +38,16 @@ public class BulletScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            gameManager.IncreaseScore(collision.gameObject.GetComponent<EnemyScript>().scoreValue);
+            var enemy = collision.gameObject.GetComponent<EnemyScript>();
+            gameManager.IncreaseScore(enemy.scoreValue);
+            enemyFormation.PlayEnemyDeathAudio();
             Destroy(collision.gameObject);
 
         }
         if (collision.gameObject.tag == "Player")
         {
             Destroy(collision.gameObject);
+            enemyFormation.PlayPlayerDeathClip();
             gameManager.RestartGame();
 
         }

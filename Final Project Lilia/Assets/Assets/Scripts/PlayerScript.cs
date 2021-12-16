@@ -9,6 +9,8 @@ public class PlayerScript : MonoBehaviour
     public float speed = 5;
 
     public GameObject bulletPrefab;
+    public AudioSource audioSource;
+    public AudioClip shootClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +34,7 @@ public class PlayerScript : MonoBehaviour
     public void Shoot()
     {
         Vector3 offset = new Vector3(0, 0.5f, 0);
+        audioSource.PlayOneShot(shootClip);
         GameObject bullet = Instantiate(bulletPrefab, transform.position + offset, Quaternion.identity);
     }
 }

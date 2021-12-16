@@ -8,6 +8,7 @@ public class EnemyScript : MonoBehaviour
     public int scoreValue;
     public GameManager gameManager;
 
+
     void Start()
     {
         formation = GetComponentInParent<EnemyFormation>();
